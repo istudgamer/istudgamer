@@ -5,29 +5,36 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const grid = document.getElementById("gamesGrid");
+const gamesGrid = document.getElementById("gamesGrid");
 
 async function loadGames() {
 
+  gamesGrid.innerHTML = "Loading...";
+
   const querySnapshot = await getDocs(collection(db, "games"));
+
+  gamesGrid.innerHTML = "";
 
   querySnapshot.forEach((doc) => {
 
     const game = doc.data();
 
-    grid.innerHTML += `
-      <div class="game-card">
+    const card = document.createElement("div");
 
-        <img src="${game.icon}">
+    card.className = "game-card";
 
-        <h3>${game.title}</h3>
+    card.innerHTML = `
 
-        <p>${game.version}</p>
+      <img src="${game.icon}" alt="${game.title}">
 
-        <p>${game.downloads} Downloads</p>
+      <h3>${game.title}</h3>
 
-      </div>
+      <p>${game.version}</p>
+
+      <p>${game.downloads} Downloads</p>
     `;
+
+    gamesGrid.appendChild(card);
   });
 }
 
