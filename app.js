@@ -11,7 +11,7 @@ async function loadGames() {
 
   gamesGrid.innerHTML = "Loading...";
 
-  const querySnapshot = await getDocs(collection(db, "games"));
+  const querySnapshot = await getDocs(collection(db, "Games"));
 
   gamesGrid.innerHTML = "";
 
